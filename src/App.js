@@ -17,11 +17,11 @@ function App() {
         );
     };
 
-    const TeamSelector = () => {
+    const TeamQuantity = () => {
         return (
-            <div id="teamSelector">
+            <div id="teamQuantity">
                 <div>Select number of teams</div>
-                <select name="teamQuantity" id="teamQuantity">
+                <select name="teamDropdown" id="teamDropdown">
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -34,17 +34,26 @@ function App() {
 
     const TeamButton = () => {
         return (
-            <button type="button" id="btn" onClick="getRandomTeams()">
+            <button type="button" id="btn">
                 Get Your Teams!
             </button>
         );
     };
+
+    const TeamUI = () => {
+        return (
+            <div id="teamUI">
+                <TeamQuantity />
+                <TeamButton />
+            </div>
+        );
+    };
+
     return (
         <>
             <Title />
             <TextNames />
-            <TeamSelector />
-            <TeamButton />
+            <TeamUI />
         </>
     );
 }

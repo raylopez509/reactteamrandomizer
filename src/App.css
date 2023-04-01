@@ -22,7 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+}src/App.css
 
 .App-link {
   color: #61dafb;
@@ -40,4 +40,18 @@
 textarea {
     height: 10em;
     width: 50em;
+}
+
+#teamUI {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#teamQuantity {
+    padding: 2rem;
+}
+
+#btn {
+    align-self: center;
 }
