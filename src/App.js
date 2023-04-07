@@ -3,6 +3,8 @@ import { useState } from "react";
 
 function App() {
     const [teamQuantity, setTeamQuantity] = useState(2);
+    let teamString = "ray";
+
     const Title = () => {
         return <h1>Team Randomizer</h1>;
     };
@@ -17,7 +19,7 @@ function App() {
         );
     };
 
-    function TeamQuantity({ teamQuantity }) {
+    function TeamQuantity() {
         return (
             <div id="teamQuantity">
                 <div>Select number of teams</div>
@@ -58,6 +60,15 @@ function App() {
         );
     };
 
+    const TeamList = (props) => {
+        console.log(teamString);
+        return (
+            <div id={props.teamNumber} style={{ whiteSpace: "pre-line" }}>
+                {props.teamText}
+            </div>
+        );
+    };
+
     function getRandomTeams(teamNumber) {
         console.log("teamnumber: " + teamNumber);
         let str = document.getElementById("textarea").value.trim();
@@ -79,24 +90,26 @@ function App() {
             }
             randNum = Math.floor(Math.random() * players.length);
         }
-        let teamstext = "";
+        let teamsText = "";
         let teamNum = 1;
         for (let i = 0; i < teamNumber; i++) {
-            teamstext = teamstext + "Team " + teamNum + ": <br>";
+            teamsText = teamsText + "Team " + teamNum + ":\n";
             let playerNum = 1;
             for (let j = 0; j < teamarr[i].length; j++) {
-                teamstext =
-                    teamstext + playerNum + ". " + teamarr[i][j] + "<br>";
+                teamsText = teamsText + playerNum + ". " + teamarr[i][j];
                 playerNum++;
             }
-            if (i != teamNumber) {
-                teamstext = teamstext + "<br>";
+            if (i !== teamNumber) {
+                teamsText = teamsText + "\n";
             }
             // let teamId = "team" + teamNum;
-            // document.getElementById(teamId).innerHTML = teamstext;
-            console.log(teamstext);
+            // document.getElementById(teamId).innerHTML = teamsText;
+            teamString = teamsText;
+            console.log(teamsText);
+            console.log("teamstring: " + teamString);
+
             teamNum++;
-            teamstext = "";
+            teamsText = "";
         }
     }
 
@@ -105,6 +118,7 @@ function App() {
             <Title />
             <TextNames />
             <TeamUI />
+            <TeamList teamNumber="1" teamText={teamString} />
         </>
     );
 }
