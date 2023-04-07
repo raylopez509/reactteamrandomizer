@@ -3,7 +3,7 @@ import { useState } from "react";
 
 function App() {
     const [teamQuantity, setTeamQuantity] = useState(2);
-    let teamString = "ray";
+    const [team1, setTeam1] = useState("");
 
     const Title = () => {
         return <h1>Team Randomizer</h1>;
@@ -44,12 +44,19 @@ function App() {
             <button
                 type="button"
                 id="btn"
-                onClick={() => getRandomTeams(teamQuantity)}
+                onClick={
+                    () => handleClick()
+                    // getRandomTeams(teamQuantity)
+                }
             >
                 Get Your Teams!
             </button>
         );
     };
+
+    function handleClick() {
+        setTeam1(getRandomTeams(teamQuantity));
+    }
 
     const TeamUI = () => {
         return (
@@ -61,7 +68,6 @@ function App() {
     };
 
     const TeamList = (props) => {
-        console.log(teamString);
         return (
             <div id={props.teamNumber} style={{ whiteSpace: "pre-line" }}>
                 {props.teamText}
@@ -70,9 +76,7 @@ function App() {
     };
 
     function getRandomTeams(teamNumber) {
-        console.log("teamnumber: " + teamNumber);
         let str = document.getElementById("textarea").value.trim();
-        console.log(str);
         let players = str.split("\n");
         let teamarr = [[]];
         for (let i = 0; i < teamNumber; i++) {
@@ -92,25 +96,26 @@ function App() {
         }
         let teamsText = "";
         let teamNum = 1;
+        let teamString = "";
         for (let i = 0; i < teamNumber; i++) {
             teamsText = teamsText + "Team " + teamNum + ":\n";
             let playerNum = 1;
             for (let j = 0; j < teamarr[i].length; j++) {
-                teamsText = teamsText + playerNum + ". " + teamarr[i][j];
+                teamsText = teamsText + playerNum + ". " + teamarr[i][j] + "\n";
                 playerNum++;
             }
-            if (i !== teamNumber) {
+            if (i != teamNumber) {
                 teamsText = teamsText + "\n";
             }
             // let teamId = "team" + teamNum;
             // document.getElementById(teamId).innerHTML = teamsText;
-            teamString = teamsText;
-            console.log(teamsText);
-            console.log("teamstring: " + teamString);
 
+            teamString = teamString + teamsText;
             teamNum++;
             teamsText = "";
+            console.log(teamString);
         }
+        return teamString;
     }
 
     return (
@@ -118,7 +123,7 @@ function App() {
             <Title />
             <TextNames />
             <TeamUI />
-            <TeamList teamNumber="1" teamText={teamString} />
+            <TeamList teamNumber="1" teamText={team1} />
         </>
     );
 }
