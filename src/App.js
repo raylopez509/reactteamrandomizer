@@ -4,6 +4,7 @@ import { useState } from "react";
 function App() {
     const [teamQuantity, setTeamQuantity] = useState(2);
     const [team1, setTeam1] = useState("");
+    const [teamArray, setTeamArray] = useState([]);
 
     const Title = () => {
         return <h1>Team Randomizer</h1>;
@@ -56,7 +57,7 @@ function App() {
     };
 
     function handleClick() {
-        setTeam1(getRandomTeams(teamQuantity));
+        setTeamArray(getRandomTeamArray(teamQuantity));
     }
 
     const TeamUI = () => {
@@ -77,8 +78,9 @@ function App() {
     };
 
     function TeamListComponent() {
-        let teams = ["ray", "keo", "kaleb"];
-        const teamLists = teams.map((team) => {
+        //teamText should be the teamArray with all of the teams in it.
+        //let teams = ["ray", "keo", "kaleb"];
+        const teamLists = teamArray.map((team) => {
             return <TeamList className="teams" teamText={team} />;
         });
         return teamLists;
@@ -113,9 +115,10 @@ function App() {
                 teamsText = teamsText + playerNum + ". " + teamarr[i][j] + "\n";
                 playerNum++;
             }
-            if (i !== teamNumber) {
-                teamsText = teamsText + "\n";
-            }
+            // if (i !== teamNumber) {
+            //     teamsText = teamsText + "\n";
+            // }
+
             // let teamId = "team" + teamNum;
             // document.getElementById(teamId).innerHTML = teamsText;
 
@@ -127,18 +130,56 @@ function App() {
         return teamString;
     }
 
+    function getRandomTeamArray(teamNumber) {
+        let str = document.getElementById("textarea").value.trim();
+        let players = str.split("\n");
+        let teamarr = [[]];
+        let randTeamArray = [];
+        for (let i = 0; i < teamNumber; i++) {
+            teamarr[i] = [];
+        }
+        let randNum = Math.floor(Math.random() * players.length);
+        let playerLength = players.length;
+        let team = 0;
+        for (let i = 0; i < playerLength; i++) {
+            let removedPlayer = players.splice(randNum, 1);
+            teamarr[team].push(removedPlayer);
+            team++;
+            if (team >= teamNumber) {
+                team = 0;
+            }
+            randNum = Math.floor(Math.random() * players.length);
+        }
+        let teamsText = "";
+        let teamNum = 1;
+        let teamString = "";
+        for (let i = 0; i < teamNumber; i++) {
+            teamsText = teamsText + "Team " + teamNum + ":\n";
+            let playerNum = 1;
+            for (let j = 0; j < teamarr[i].length; j++) {
+                teamsText = teamsText + playerNum + ". " + teamarr[i][j];
+                playerNum++;
+                if (j !== teamarr[i].length - 1) {
+                    teamsText = teamsText + "\n";
+                }
+            }
+            // let teamId = "team" + teamNum;
+            // document.getElementById(teamId).innerHTML = teamsText;
+            teamString = teamString + teamsText;
+            randTeamArray.push(teamsText);
+            teamNum++;
+            teamsText = "";
+            console.log(teamString);
+        }
+        return randTeamArray;
+    }
+
     return (
         <>
             <Title />
             <TextNames />
             <TeamUI />
-
-            <div className="listing">
-                <TeamList teamNumber="1" teamText={team1} />
-                <TeamList teamNumber="2" teamText="test" />
-                {TeamListComponent()}
-            </div>
-            <div className="listing">{}</div>
+            <div className="listing">{TeamListComponent()}</div>
         </>
     );
 }
