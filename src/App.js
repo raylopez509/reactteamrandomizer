@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
+    const [names, setNames] = useState("");
     const [teamQuantity, setTeamQuantity] = useState(2);
     const [team1, setTeam1] = useState("");
     const [teamArray, setTeamArray] = useState([]);
@@ -17,6 +18,8 @@ function App() {
                 id="textarea"
                 name="textarea"
                 placeholder="Put list of names here separated by a new line"
+                value={names}
+                onChange={(e) => setNames(e.target.value)}
             ></textarea>
         );
     };
@@ -177,7 +180,13 @@ function App() {
     return (
         <>
             <Title />
-            <TextNames />
+            <textarea
+                id="textarea"
+                name="textarea"
+                placeholder="Put list of names here separated by a new line"
+                value={names}
+                onChange={(e) => setNames(e.target.value)}
+            ></textarea>
             <TeamUI />
             <div className="listing">{TeamListComponent()}</div>
         </>
