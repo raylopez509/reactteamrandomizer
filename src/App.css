@@ -42,6 +42,11 @@ textarea {
     width: 50em;
 }
 
+.teams {
+    padding: 2rem;
+    white-space: pre-line;
+}
+
 #teamUI {
     display: flex;
     justify-content: center;
@@ -54,4 +59,10 @@ textarea {
 
 #btn {
     align-self: center;
+}
+
+.listing {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }

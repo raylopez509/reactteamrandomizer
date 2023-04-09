@@ -10,6 +10,7 @@ function App() {
     };
 
     const TextNames = () => {
+        //text area for teams
         return (
             <textarea
                 id="textarea"
@@ -69,11 +70,19 @@ function App() {
 
     const TeamList = (props) => {
         return (
-            <div id={props.teamNumber} style={{ whiteSpace: "pre-line" }}>
+            <div className="teams" id={props.teamNumber}>
                 {props.teamText}
             </div>
         );
     };
+
+    function TeamListComponent() {
+        let teams = ["ray", "keo", "kaleb"];
+        const teamLists = teams.map((team) => {
+            return <TeamList className="teams" teamText={team} />;
+        });
+        return teamLists;
+    }
 
     function getRandomTeams(teamNumber) {
         let str = document.getElementById("textarea").value.trim();
@@ -104,7 +113,7 @@ function App() {
                 teamsText = teamsText + playerNum + ". " + teamarr[i][j] + "\n";
                 playerNum++;
             }
-            if (i != teamNumber) {
+            if (i !== teamNumber) {
                 teamsText = teamsText + "\n";
             }
             // let teamId = "team" + teamNum;
@@ -123,9 +132,21 @@ function App() {
             <Title />
             <TextNames />
             <TeamUI />
-            <TeamList teamNumber="1" teamText={team1} />
+
+            <div className="listing">
+                <TeamList teamNumber="1" teamText={team1} />
+                <TeamList teamNumber="2" teamText="test" />
+                {TeamListComponent()}
+            </div>
+            <div className="listing">{}</div>
         </>
     );
 }
 
 export default App;
+
+/*
+
+
+
+*/
