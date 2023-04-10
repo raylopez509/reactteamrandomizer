@@ -4,22 +4,12 @@ import { useState } from "react";
 function App() {
     const [names, setNames] = useState("");
     const [teamQuantity, setTeamQuantity] = useState(2);
-    const [team1, setTeam1] = useState("");
     const [teamArray, setTeamArray] = useState([]);
 
     const Title = () => {
         return <h1>Team Randomizer</h1>;
     };
 
-    const TextNames = (
-        <textarea
-            id="textarea"
-            name="textarea"
-            placeholder="Put list of names here separated by a new line"
-            value={names}
-            onChange={(e) => setNames(e.target.value)}
-        ></textarea>
-    );
     function TeamQuantity() {
         return (
             <div id="teamQuantity">
@@ -45,19 +35,12 @@ function App() {
             <button
                 type="button"
                 id="btn"
-                onClick={
-                    () => handleClick()
-                    // getRandomTeams(teamQuantity)
-                }
+                onClick={() => setTeamArray(getRandomTeamArray(teamQuantity))}
             >
                 Get Your Teams!
             </button>
         );
     };
-
-    function handleClick() {
-        setTeamArray(getRandomTeamArray(teamQuantity));
-    }
 
     const TeamUI = () => {
         return (
@@ -117,7 +100,6 @@ function App() {
         }
         let teamsText = "";
         let teamNum = 1;
-        let teamString = "";
         for (let i = 0; i < teamNumber; i++) {
             teamsText = teamsText + "Team " + teamNum + ":\n";
             let playerNum = 1;
@@ -128,13 +110,9 @@ function App() {
                     teamsText = teamsText + "\n";
                 }
             }
-            // let teamId = "team" + teamNum;
-            // document.getElementById(teamId).innerHTML = teamsText;
-            teamString = teamString + teamsText;
             randTeamArray.push(teamsText);
             teamNum++;
             teamsText = "";
-            console.log(teamString);
         }
         return randTeamArray;
     }
